@@ -1,0 +1,8 @@
+
+### Hae kaikki autot
+GET http://localhost:3001/api/cars
+
+
+###
+GET http://localhost:3001/api/cars/1
+
