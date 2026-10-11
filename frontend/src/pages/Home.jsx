@@ -13,6 +13,9 @@ function Home() {
       .catch((error) => console.error("Autojen haku epäonnistui:", error));
   }, []);
 
+  // Haetaan autot backendistä ja näytetään ne karusellissa.
+  // Käyttäjä voi siirtyä auton tietoihin kuvaa tai painiketta klikkaamalla.
+
   return (
     <main className="container py-5">
       <div className="p-5 mb-4 bg-light rounded-3">
@@ -29,6 +32,7 @@ function Home() {
         <section>
           <h2 className="mb-4">Tutustu vuokra-autoihin</h2>
 
+          {/* Bootstrapin Carousel-komponentti esittelee vuokra-autot vaihtuvina kuvina. */}
           <div
             id="carCarousel"
             className="carousel slide"
