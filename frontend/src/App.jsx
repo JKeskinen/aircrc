@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import CarDetails from "./pages/CarDetails";
 import Cars from "./pages/Cars";
 import Home from "./pages/Home";
+import MyPage from "./pages/MyPage";
+import Booking from "./pages/Booking";
 import "./styles/App.css";
 
 function NotFound() {
@@ -26,6 +28,8 @@ function App() {
         <Route path="/cars" element={<Cars />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/cars/:id" element={<CarDetails />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/booking/:id" element={<Booking />} />
       </Routes>
     </>
   );
