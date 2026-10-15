@@ -57,7 +57,7 @@ flowchart TD
 3. Käynnistä backend ja frontend projektin määritetyillä npm-skripteillä.
 
 ```bash
-git clone https://github.com/JKeskinen/aircrc
+git clone https://github.com/JKeskinen/aircrc/tree/main
 ```
 
 ## Tietojen tallennus
