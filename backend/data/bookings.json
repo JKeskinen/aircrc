@@ -1,0 +1,26 @@
+{
+  "bookings": [
+    {
+      "id": "1792065904992",
+      "carId": 5,
+      "userId": 2,
+      "userName": "Asiakas Pertti",
+      "startDate": "2026-10-15",
+      "endDate": "2026-10-31",
+      "totalDays": 16,
+      "totalPrice": 12000,
+      "status": "confirmed"
+    },
+    {
+      "id": "1792065918403",
+      "carId": 6,
+      "userId": 3,
+      "userName": "Asiakas Aulikki",
+      "startDate": "2026-10-15",
+      "endDate": "2026-10-31",
+      "totalDays": 16,
+      "totalPrice": 48000,
+      "status": "confirmed"
+    }
+  ]
+}

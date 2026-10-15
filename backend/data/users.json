@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "auth": "admin",
+      "address": "Hallintokatu 1",
+      "postalCode": "00100",
+      "city": "Helsinki"
+    },
+    {
+      "id": 2,
+      "name": "Asiakas Pertti",
+      "auth": "customer",
+      "address": "Reaktinpolku 22",
+      "postalCode": "60720",
+      "city": "Seinäjoki"
+    },
+    {
+      "id": 3,
+      "name": "Asiakas Aulikki",
+      "auth": "customer",
+      "address": "Koivukuja 7 B 12",
+      "postalCode": "33100",
+      "city": "Tampere"
+    }
+  ]
+}

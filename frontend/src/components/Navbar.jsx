@@ -1,6 +1,29 @@
-import { NavLink } from "react-router-dom";
+/**
+ * KOMPONENTTI: Navigaatiopalkki (Navbar)
+ *
+ * Tarkoitus:
+ * Näyttää sovelluksen yläreunassa navigaatiolinkit etusivulle, omiin tietoihin
+ * ja varauksiin. Ylläpitäjälle näytetään lisäksi linkki hallintapaneeliin.
+ * Aktiivinen sivu korostetaan, ja mobiilinäkymässä navigaatio voidaan avata
+ * ja sulkea.
+ *
+ * Tiedonsiirto:
+ * App -> Navbar({ isAdmin })
+ *   Saa isAdmin-arvon props-parametrina sovelluksen pääkomponentilta.
+ * Navbar -> React Router
+ *   NavLink-komponentit ohjaavat käyttäjän valitulle sivulle:
+ *   /, /mypage, /my-bookings tai ylläpitäjälle /admin.
+ *
+ * Keskeiset tiedot:
+ * isAdmin = määrittää, näytetäänkö ylläpidon linkki ja käytetäänkö
+ * varauslinkissä tekstiä "Varaukset" vai "Varaukseni".
+ * navLinkClass() lisää aktiiviselle linkille active- ja fw-semibold-luokat.
+ *
+ * Komponentti ei hae eikä tallenna tietoja palvelimelle.
+ */
 
-function Navbar() {
+import { NavLink } from "react-router-dom";
+function Navbar({ isAdmin }) {
   const navLinkClass = ({ isActive }) =>
     `nav-link ${isActive ? "active fw-semibold" : ""}`;
 
@@ -34,12 +57,14 @@ function Navbar() {
             </NavLink>
 
             <NavLink to="/my-bookings" className={navLinkClass}>
-              Varaukseni
+              {isAdmin ? "Varaukset" : "Varaukseni"}
             </NavLink>
 
-            <NavLink to="/admin" className={navLinkClass}>
-              Ylläpito
-            </NavLink>
+            {isAdmin && (
+              <NavLink to="/admin" className={navLinkClass}>
+                Ylläpito
+              </NavLink>
+            )}
           </div>
         </div>
       </div>

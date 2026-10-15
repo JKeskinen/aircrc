@@ -1,3 +1,24 @@
+/**
+ * SIVU: Vuokra-autojen listaus (Cars)
+ *
+ * Tarkoitus:
+ * Näyttää kaikki vuokrattavat autot korttinäkymässä. Korteissa esitetään
+ * auton kuva, merkki, malli, vuosimalli, henkilömäärä, vaihteisto,
+ * polttoaine ja päivähinta. Linkistä siirrytään auton tarkempiin tietoihin.
+ *
+ * Tiedonsiirto:
+ * Cars -> carService.getAll()
+ *   Pyytää palvelimelta kaikki autot ja tallentaa vastauksen cars-tilaan.
+ * Palvelin -> Cars
+ *   Palauttaa autojen tiedot tai virheen, joka näytetään käyttäjälle.
+ * Cars -> CarDetails (/cars/:id)
+ *   Siirtyy valitun auton tietosivulle auton id-tunnisteen perusteella.
+ *
+ * Keskeiset tiedot:
+ * cars = palvelimelta haettujen autojen lista, error = autojen lataamisen
+ * virheilmoitus. Autokorttien sisältö muodostetaan cars-listan tiedoista.
+ */
+
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import carService from "../services/cars";
@@ -44,30 +65,39 @@ function Cars() {
                 className="card-img-top"
                 alt={`${car.brand} ${car.model}`}
               />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                  {car.brand} {car.model}
-                </h5>
+              {/* Kuvan alle tuleva tietokortti */}
+              <div className="card-body">
+                <div className="row g-2">
+                  {/* VASEN PUOLI */}
+                  <div className="col-6">
+                    <h5 className="card-title">
+                      {car.brand} {car.model}
+                    </h5>
+                    <p className="text-secondary mb-0">Vuosimalli {car.year}</p>
+                  </div>
 
-                <p className="text-secondary mb-3">Vuosimalli {car.year}</p>
+                  {/* OIKEA PUOLI */}
+                  <div className="col-6">
+                    <ul className="list-unstyled mb-0">
+                      <li>Henkilömäärä: {car.seats}</li>
+                      <li>Vaihteisto: {car.transmission}</li>
+                      <li>Polttoaine: {car.fuel}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-auto">
+                <p className="fs-5 fw-bold mb-3">
+                  {car.price} €{" "}
+                  <small className="text-secondary fs-6">/ päivä</small>
+                </p>
 
-                <ul className="list-unstyled">
-                  <li>Henkilömäärä: {car.seats}</li>
-                  <li>Vaihteisto: {car.transmission}</li>
-                  <li>Polttoaine: {car.fuel}</li>
-                </ul>
-
-                <div className="mt-auto">
-                  <p className="fs-5 fw-bold mb-3">
-                    {car.price} €{" "}
-                    <small className="text-secondary fs-6">/ päivä</small>
-                  </p>
-
+                <div>
                   <Link
                     to={`/cars/${car.id}`}
                     className="btn btn-primary w-100"
                   >
-                    Katso auto
+                    Katso lisätiedot
                   </Link>
                 </div>
               </div>

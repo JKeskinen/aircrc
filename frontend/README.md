@@ -116,7 +116,7 @@ Tiedot ovat tällä hetkellä JavaScript-tiedostossa. Erillistä tietokantaa, py
 
 - Auton varaaminen ja varaustietojen tallentaminen
 - Omien varausten tarkastelu
-- Ylläpitäjän hallintanäkymä
+- Ylläpitäjän hallintanäkymä - OK
 - Asiakkaiden ja ylläpitäjän kirjautuminen
 - Autojen ja varausten hallinta
 - Tietojen tallentaminen tietokantaan
@@ -124,3 +124,5 @@ Tiedot ovat tällä hetkellä JavaScript-tiedostossa. Erillistä tietokantaa, py
 ## 9. Dokumentointi
 
 Päivitellään README.md tiedostoa
+Uusien autojen lisääminen ja autojen poistaminen tehty.
+Haettu uusille autoille koko maailman autojen lista valmistajista ja malleista. Ladattu https://github.com/gor3a/vehicle-makes-models -> tallennettu json. Käyttäjä valitsee vetovalikosta autovalmistajan, seuraavaan valikkoon tulee näkyviin automallit kyseiseltä valmistajalta. POST /api/cars/, DELETE /api/cars:id
