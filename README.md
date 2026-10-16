@@ -31,28 +31,37 @@ Lopputuloksena Web-pohjainen autojen varausjärjestelmä, jossa käyttäjät voi
 ## Toimintaperiaate
 
 ```mermaid
+
 flowchart TD
     A[Asiakas avaa sovelluksen] --> B[Selaa autoja]
-    B --> C[Valitsee auton ja päivämäärät]
-    C --> D[Frontend lähettää pyynnön Axiosilla]
-    D --> E[Express REST API]
-    E --> F{Tarkistukset}
+    B --> C[Valitsee auton ja vuokra-ajan]
+    C --> D[Frontend: React ja Axios]
+    D --> E[Backend: Express REST API]
+    E --> F{Tietojen validointi}
     F -->|Virhe| G[Palautetaan virheilmoitus]
-    F -->|Kelvollinen varaus| H[Tarkistetaan päällekkäiset varaukset]
-    H --> I{Auto vapaa?}
-    I -->|Ei| G
-    I -->|Kyllä| J[Lasketaan vuokrauksen hinta]
-    J --> K[Tallennetaan varaus bookings.json-tiedostoon]
-    K --> L[Vahvistetaan varaus asiakkaalle]
+    F -->|Kelvollinen pyyntö| H[Lasketaan vuokrauspäivät ja hinta]
+    H --> I[Tallennetaan varaus bookings.json-tiedostoon]
+    I --> J[Palautetaan vastaus frontendille]
+    J --> K[Näytetään varauksen tulos asiakkaalle]
+
+    A --> L[Omat varaukset ja käyttäjätiedot]
+    L --> D
 
     M[Ylläpitäjä] --> N[Hallintapaneeli]
     N --> O[Lisää tai poistaa autoja]
     N --> P[Poistaa varauksia]
-    O --> Q[cars.json]
-    P --> R[bookings.json]
+    O --> E
+    P --> E
+    E --> Q[cars.json]
+    E --> R[bookings.json]
 
-    S[all.json] --> T[Automerkit ja mallien tekniset tiedot]
-    T --> E
+    S[all.json] --> T[Automerkkien ja mallien tietolähde]
+    T --> N
+
+    E --> U[JSON-tiedostot backendissä]
+    U --> Q
+    U --> R
+
 ```
 
 ## Käynnistäminen paikallisesti
