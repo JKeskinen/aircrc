@@ -1,128 +1,248 @@
-# React + Vite + BOOTSTRAP-selainohjelmointityö
+# Autojen varausohjelma
 
-Päätin tehdä Airbnb-tyylisen autonvuokraus-sivuston
+Päätin tehdä Airbnb-tyylisen autonvuokraussivuston.
 
-# AirCrc – Autonvuokrauspalvelu
+Alun perin ajatuksena oli vain tehdä yksinkertainen varastohallinta, jolla autoja lisätään ja poistetaan sekä asetetaan huoltotilauksia ja annetaan niille aikoja. Se muuttui kuitenkin useiden eri kokeiluerien jälkeen tähän muotoon.
 
-## 1. Projektin kuvaus
+AirCrc (_Air Customer Rent Car_). Näin YouTubessa Bootstrap-kirjastolla tehtyä React-sovellusta, jolloin sain idean lähteä tekemään jotain niiden perusteella.
 
-AirCrc (Air CustomerRentCar) on verkkopohjainen autonvuokrauspalvelu, jossa käyttäjät voivat selata vuokra-autoja ja tutustua niiden tietoihin. Palvelu on yhden autovuokraamon ylläpitämä, ja käyttöliittymään on haettu vaikutteita muilta varaussivustoilta.
+[Bootstrap – Getting Started](https://getbootstrap.com/docs/6.0/getting-started/install/)
 
-Projektin tavoitteena on toteuttaa helppokäyttöinen ja responsiivinen verkkosovellus, jota voidaan kehittää vaiheittain.
+Lopputuloksena on web-pohjainen autojen varausjärjestelmä, jossa käyttäjät voivat tarkastella vuokrattavia autoja ja tehdä varauksia. Ylläpitäjä hallitsee autovalikoimaa ja varauksia hallintanäkymän kautta.
 
-## 2. Teknologiat
+## Ominaisuudet
 
-- **Frontend:** React, JSX ja Vite
-- **Tyylit:** Bootstrap 5 ja CSS
-- **Reititys:** React Router
-- **Backend:** Node.js ja Express
-- **Rajapinta:** REST API
-- **Kehitystyökalut:** Nodemon ja Prettier
-- **Datan lähde:** Backendin JavaScript-tiedostossa määritelty autojen data
+- **Autojen selaus:** Tarkastele vuokrattavia autoja ja niiden teknisiä tietoja.
+- **Varausten tekeminen:** Valitse auto sekä vuokrauksen alkamis- ja päättymispäivä.
+- **Varausten tarkistus:** Järjestelmä tarkistaa varausten päällekkäisyydet ja laskee vuokrauksen kokonaishinnan.
+- **Hallintapaneeli:** Ylläpitäjä voi lisätä ja poistaa autoja sekä poistaa varauksia.
+- **Ajoneuvotietokanta:** `all.json` sisältää automerkit, mallit, sukupolvet ja saatavilla olevat tekniset vaihtoehdot.
+- **Tietojen tallennus:** Autojen ja varausten tiedot tallennetaan JSON-tiedostoihin.
 
-## 3. Projektin rakenne
+## Mitä projekti sisältää?
 
 ```text
-aircrc/
+AirCrc/
 ├── backend/
 │   ├── data/
-│   │   └── cars.js
-│   ├── server.js
-│   └── package.json
+│   │   ├── all.json           # Ajoneuvomerkkien ja -mallien lähdedatasetti
+│   │   ├── cars.json          # Vuokrattavien autojen tiedot
+│   │   ├── bookings.json      # Asiakkaiden tekemät varaukset
+│   │   ├── users.json         # Käyttäjätiedot
+│   │   └── rentedCars.js      # Vuokrattuihin autoihin liittyvä toiminnallisuus
+│   ├── server.js              # Express-palvelin ja REST API
+│   └── package.json           # Backendin riippuvuudet ja käynnistyskomennot
+│
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   └── Navbar.jsx
+│   │   │   ├── Footer.jsx     # Sivuston alatunniste
+│   │   │   └── Navbar.jsx     # Navigointipalkki ja sivujen välinen navigointi
+│   │   │
 │   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Cars.jsx
-│   │   │   └── CarDetails.jsx
+│   │   │   ├── Admin.jsx      # Autojen ja varausten ylläpito
+│   │   │   ├── Booking.jsx    # Auton varaaminen ja vuokrahinnan laskenta
+│   │   │   ├── CarDetails.jsx # Yksittäisen auton tiedot
+│   │   │   ├── Cars.jsx       # Autojen listaus ja selaaminen
+│   │   │   ├── Home.jsx       # Etusivu
+│   │   │   ├── MyBookings.jsx # Asiakkaan omat varaukset
+│   │   │   └── MyPage.jsx     # Asiakkaan oma sivu ja käyttäjätiedot
+│   │   │
 │   │   ├── services/
-│   │   │   └── cars.js
-|   |   ├──styles/
-|   |   |   └─ App.css
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   └── package.json
-└── README.md
+│   │   │   ├── booking.js     # Varausten API-pyynnöt
+│   │   │   ├── cars.js        # Autojen API-pyynnöt
+│   │   │   ├── getAll.rest    # REST API -pyyntöjen testaus
+│   │   │   └── users.js       # Käyttäjien API-pyynnöt
+│   │   │
+│   │   ├── styles/
+│   │   │   ├── Admin.css      # Ylläpitonäkymän tyylit
+│   │   │   ├── App.css        # Sovelluksen yleiset tyylit
+│   │   │   ├── Booking.css    # Varaussivun tyylit
+│   │   │   ├── CarDetails.css # Auton tietosivun tyylit
+│   │   │   └── MyBookings.css # Varausten listauksen tyylit
+│   │   │
+│   │   ├── assets/            # Käyttöliittymän staattiset resurssit
+│   │   ├── images/            # Kuvamateriaalit, kuten auton oletuskuva
+│   │   ├── App.jsx            # Sovelluksen pääkomponentti
+│   │   └── main.jsx           # React-sovelluksen käynnistyspiste
+│   │
+│   └── package.json           # Frontendin riippuvuudet ja Vite-komennot
+│
+└── README.md                  # Projektin dokumentaatio
 ```
 
-Rakenne kuvaa projektin tämänhetkistä toteutusta. Uusia komponentteja ja sivuja lisätään tarpeen mukaan.
+## Tietomalli ja skeema
 
-## 4. Toteutetut ominaisuudet
+### Autojen JSON-rakenne
 
-- Etusivu ja navigointi
-- Vuokra-autojen listaus
-- Autokohtainen tietosivu
-- Autojen esittely etusivun karusellissa
-- React Router -reititys
-- Express-backend
-- Autojen hakeminen backendin REST-rajapinnasta
-- Virheenkäsittely autojen latauksessa
-- Responsiivinen käyttöliittymä Bootstrapilla
+Autojen tiedot tallennetaan `cars.json`-tiedostoon. Tiedot sisältävät auton perustiedot, vuokraushinnan, ominaisuudet ja kuvan. Ulkoisesta ajoneuvodatasetistä tuoduissa autoissa voi olla lisäksi tarkempia teknisiä tietoja, kuten moottorin teho, vääntömomentti, vetotapa ja mitat.
 
-## 5. Backendin rajapinta
+Esimerkki auton tietueesta:
 
-Backend toimii oletuksena portissa `3001`.
+```json
+{
+  "id": 1,
+  "brand": "Toyota",
+  "model": "Corolla",
+  "year": 2023,
+  "price": 45,
+  "seats": 5,
+  "transmission": "Automaatti",
+  "fuel": "Hybridi",
+  "availability": "Saatavilla",
+  "engine": "1.8 l hybridi",
+  "horsepower": 140,
+  "displacement": "1798 cm³",
+  "consumption": "4.5 l/100 km"
+}
+```
 
-| HTTP-pyyntö | Osoite          | Kuvaus                                                |
-| ----------- | --------------- | ----------------------------------------------------- |
-| GET         | `/`             | Backendin testireitti                                 |
-| GET         | `/api/cars`     | Palauttaa kaikki autot                                |
-| GET         | `/api/cars/:id` | Palauttaa yksittäisen auton, jos reitti on toteutettu |
+Datasetistä tuotujen autojen tekniset tiedot voivat sisältää myös seuraavia kenttiä:
 
-Autojen tiedot määritellään tiedostossa `backend/data/cars.js`. Frontend hakee tiedot palvelutiedoston `frontend/src/services/cars.js` kautta.
+```json
+{
+  "generation": "Huracan (2022)",
+  "bodyType": null,
+  "engineLabel": "5.2L V10 7AT RWD (610 HP)",
+  "fuelType": "Gasoline",
+  "powerHp": 610,
+  "displacementCc": 5204,
+  "cylinders": 10,
+  "torqueNm": 565,
+  "drivetrain": "Rear Wheel Drive",
+  "zeroToHundredKmhS": 3.4,
+  "topSpeedKmh": 261,
+  "lengthMm": 4524,
+  "widthMm": 1956,
+  "heightMm": 1247,
+  "wheelbaseMm": 2629,
+  "curbWeightKg": 1470
+}
+```
 
-## 6. Käynnistäminen
+Kaikki tekniset kentät eivät ole käytettävissä jokaiselle autolle. Puuttuva tieto esitetään tarvittaessa `null`-arvona.
 
-### Backend
+### Varausten JSON-rakenne
 
-Avaa terminaali `backend`-kansiossa ja suorita:
+Varaukset tallennetaan `bookings.json`-tiedostoon `bookings`-taulukon sisään. Varaus yhdistetään autoon `carId`-kentällä ja asiakkaaseen `userId`-kentällä.
+
+```json
+{
+  "bookings": [
+    {
+      "id": "1792065904992",
+      "carId": 5,
+      "userId": 2,
+      "userName": "Asiakas Pertti",
+      "startDate": "2026-10-15",
+      "endDate": "2026-10-31",
+      "totalDays": 16,
+      "totalPrice": 12000,
+      "status": "confirmed"
+    }
+  ]
+}
+```
+
+Varauksen kentät:
+
+| Kenttä       | Kuvaus                                  |
+| ------------ | --------------------------------------- |
+| `id`         | Varauksen yksilöivä tunniste            |
+| `carId`      | Varattavan auton tunniste               |
+| `userId`     | Varaavan asiakkaan tunniste             |
+| `userName`   | Asiakkaan nimi                          |
+| `startDate`  | Vuokrauksen alkamispäivä                |
+| `endDate`    | Vuokrauksen päättymispäivä              |
+| `totalDays`  | Vuokrauksen kesto päivinä               |
+| `totalPrice` | Varauksen kokonaishinta                 |
+| `status`     | Varauksen tila, esimerkiksi `confirmed` |
+
+### Tietojen käsittely
+
+Frontend lähettää HTTP-pyynnöt Axiosilla Express-backendille. Backend käsittelee pyynnöt ja lukee tai päivittää JSON-tiedostoihin tallennettuja tietoja.
+
+```text
+React-frontend
+      │
+      │ Axios / HTTP
+      ▼
+Express REST API
+      │
+      ├── cars.json
+      ├── bookings.json
+      └── users.json
+
+all.json
+      │
+      ▼
+Automerkkien ja -mallien valinta
+ylläpitonäkymässä
+```
+
+JSON-tiedostot toimivat projektin tietojen tallennusmuotona. Projekti ei käytä näiden tietojen perusteella erillistä relaatiotietokantaa.
+
+## Teknologiat
+
+| Teknologia | Käyttötarkoitus                                       |
+| ---------- | ----------------------------------------------------- |
+| React      | Käyttöliittymän toteutus                              |
+| Vite       | Kehitysympäristö ja sovelluksen build                 |
+| Bootstrap  | Käyttöliittymän tyylittely ja asettelu                |
+| Axios      | HTTP-pyynnöt frontendistä backendiin                  |
+| Node.js    | Backendin suoritusympäristö                           |
+| Express    | REST API ja pyyntöjen käsittely                       |
+| CORS       | Frontendin ja backendin välisten pyyntöjen salliminen |
+| JSON       | Autojen, varausten ja käyttäjien tietojen tallennus   |
+
+## Toimintaperiaate
+
+```mermaid
+flowchart TD
+    A[Asiakas] --> B[React-käyttöliittymä]
+    B --> C[Autojen selaus ja auton valinta]
+    C --> D[Varaus ja vuokra-ajan valinta]
+    D --> E[Axios / HTTP]
+    E --> F[Express REST API]
+    F --> G{Tietojen validointi}
+    G -->|Virhe| H[Virheilmoitus]
+    G -->|Kelvollinen pyyntö| I[Vuokra-ajan ja hinnan käsittely]
+    I --> J[bookings.json]
+    J --> K[Vastaus frontendille]
+    K --> L[Varauksen tulos asiakkaalle]
+
+    A --> M[Omat varaukset ja käyttäjätiedot]
+    M --> E
+
+    N[Ylläpitäjä] --> O[Hallintapaneeli]
+    O --> P[Autojen hallinta]
+    O --> Q[Varausten hallinta]
+    P --> F
+    Q --> F
+
+    F --> R[cars.json]
+    F --> S[bookings.json]
+    F --> T[users.json]
+
+    U[all.json] --> V[Automerkkien ja mallien tietolähde]
+    V --> O
+```
+
+## Käynnistäminen paikallisesti
+
+1. Kloonaa repositorio.
+2. Asenna backendin ja frontendin riippuvuudet.
+3. Käynnistä backend ja frontend projektin määritetyillä npm-skripteillä.
 
 ```bash
-npm install
-npm run dev
+git clone https://github.com/JKeskinen/aircrc.git
 ```
 
-Backend käynnistyy osoitteeseen `http://localhost:3001`.
+Tarkista käynnistyskomennot kummankin hakemiston `package.json`-tiedostosta.
 
-### Frontend
+## Tietojen tallennus
 
-Avaa toinen terminaali frontendin `package.json`-tiedoston sisältävään kansioon ja suorita:
-
-```bash
-npm install
-npm run dev
-```
-
-Avaa terminaalin ilmoittama paikallinen osoite selaimessa.
-
-### Rajapinnan testaaminen
-
-Autojen tiedot voi tarkistaa selaimessa osoitteesta:
-
-`http://localhost:3001/api/cars`
-
-REST-pyyntöjä voidaan testata myös VS Coden REST Client -laajennuksella ja `.rest`-tiedostoilla.
-
-## 7. Kehitysvaihe
-
-Projektissa on siirrytty pelkästä käyttöliittymärakenteesta frontendin ja backendin yhdistämiseen. Autojen listaus, yksittäisen auton tietosivu ja etusivun karuselli hyödyntävät backendistä haettavia autojen tietoja.
-
-Tiedot ovat tällä hetkellä JavaScript-tiedostossa. Erillistä tietokantaa, pysyvää tallennusta ja varsinaista varauslogiikkaa ei ole vielä toteutettu.
-
-## 8. Suunnitellut ominaisuudet
-
-- Auton varaaminen ja varaustietojen tallentaminen
-- Omien varausten tarkastelu
-- Ylläpitäjän hallintanäkymä - OK
-- Asiakkaiden ja ylläpitäjän kirjautuminen
-- Autojen ja varausten hallinta
-- Tietojen tallentaminen tietokantaan
-
-## 9. Dokumentointi
-
-Päivitellään README.md tiedostoa
-Uusien autojen lisääminen ja autojen poistaminen tehty.
-Haettu uusille autoille koko maailman autojen lista valmistajista ja malleista. Ladattu https://github.com/gor3a/vehicle-makes-models -> tallennettu json. Käyttäjä valitsee vetovalikosta autovalmistajan, seuraavaan valikkoon tulee näkyviin automallit kyseiseltä valmistajalta. POST /api/cars/, DELETE /api/cars:id
+- `data/all.json` – ajoneuvojen valmistajat, mallit ja tekniset vaihtoehdot.
+- `data/cars.json` – lisätyt vuokra-autot.
+- `data/bookings.json` – tehdyt varaukset.
+- `data/users.json` – käyttäjätiedot.
