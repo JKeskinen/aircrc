@@ -1,6 +1,11 @@
 # Autojen varausohjelma
 
-Web-pohjainen autojen varausjärjestelmä, jossa käyttäjät voivat tarkastella vuokrattavia autoja ja tehdä varauksia. Ylläpitäjä hallitsee autovalikoimaa ja varauksia hallintanäkymän kautta.
+Päätin tehdä Airbnb-tyylisen autonvuokraus-sivuston.
+
+Alunperin ajatuksena oli vain että teen yksinkertaisen varastohallinnan, jolla autoja lisätään/poistetaan, asetetaan huoltotilaus/annetaan aika. Mutta se muuttui sitten tässä useiden eri kokeiluerien jälkeen tähän muotoon.
+Aircrc (aircustomer-rent-car). Näin youtubessa Bootstrap-kirjastolla tehtyä reactia, jolloin sain idean lähteä niiden perusteella tekemään jotain.
+https://getbootstrap.com/docs/6.0/getting-started/install/
+Lopputuloksena Web-pohjainen autojen varausjärjestelmä, jossa käyttäjät voivat tarkastella vuokrattavia autoja ja tehdä varauksia. Ylläpitäjä hallitsee autovalikoimaa ja varauksia hallintanäkymän kautta.
 
 ## Ominaisuudet
 
