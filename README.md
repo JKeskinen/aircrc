@@ -22,38 +22,51 @@ Lopputuloksena Web-pohjainen autojen varausjärjestelmä, jossa käyttäjät voi
 AirCrc/
 ├── backend/
 │   ├── data/
-│   │   ├── all.json          # Ajoneuvomerkkien ja -mallien lähdedatasetti
-│   │   ├── cars.json         # Vuokrattavien autojen tiedot
-│   │   ├── bookings.json     # Varaustiedot
-│   │   ├── users.json        # Käyttäjätiedot
-│   │   └── rentedCars.js     # Vuokrattuihin autoihin liittyvä toiminnallisuus
-│   ├── server.js             # Express-backend ja REST API
-│   └── package.json
+│   │   ├── all.json           # Ajoneuvomerkkien ja -mallien lähdedatasetti
+│   │   ├── cars.json          # Vuokrattavien autojen tiedot
+│   │   ├── bookings.json      # Asiakkaiden tekemät varaukset
+│   │   ├── users.json         # Käyttäjätiedot
+│   │   └── rentedCars.js      # Vuokrattuihin autoihin liittyvä toiminnallisuus
+│   ├── server.js              # Express-palvelin, REST API ja pyyntöjen käsittely
+│   └── package.json           # Backendin riippuvuudet ja käynnistyskomennot
 │
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Footer.jsx
-│   │   │   └── Navbar.jsx
+│   │   │   ├── Footer.jsx     # Sivuston alatunniste
+│   │   │   └── Navbar.jsx     # Navigointipalkki ja sivujen välinen navigointi
+│   │   │
 │   │   ├── pages/
-│   │   │   ├── Admin.jsx
-│   │   │   ├── Booking.jsx
-│   │   │   ├── CarDetails.jsx
-│   │   │   ├── Cars.jsx
-│   │   │   ├── Home.jsx
-│   │   │   ├── MyBookings.jsx
-│   │   │   └── MyPage.jsx
+│   │   │   ├── Admin.jsx      # Ylläpitonäkymä autojen ja varausten hallintaan
+│   │   │   ├── Booking.jsx    # Auton varaaminen ja vuokrahinnan laskenta
+│   │   │   ├── CarDetails.jsx # Yksittäisen auton tiedot
+│   │   │   ├── Cars.jsx       # Autojen listaus ja selaaminen
+│   │   │   ├── Home.jsx       # Etusivu
+│   │   │   ├── MyBookings.jsx # Asiakkaan omat varaukset
+│   │   │   └── MyPage.jsx     # Asiakkaan oma sivu ja käyttäjätiedot
+│   │   │
 │   │   ├── services/
-│   │   │   ├── booking.js
-│   │   │   ├── cars.js
-│   │   │   └── users.js
+│   │   │   ├── booking.js    # Varausten API-pyynnöt
+│   │   │   ├── cars.js       # Autojen API-pyynnöt
+│   │   │   ├── getAll.rest   # REST API -pyyntöjen testaus
+│   │   │   └── users.js      # Käyttäjien API-pyynnöt
+│   │   │
 │   │   ├── styles/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   └── package.json
+│   │   │   ├── Admin.css       # Ylläpitonäkymän tyylit
+│   │   │   ├── App.css         # Sovelluksen yleiset tyylit
+│   │   │   ├── Booking.css     # Varaussivun tyylit
+│   │   │   ├── CarDetails.css  # Auton tietosivun tyylit
+│   │   │   └── MyBookings.css  # Varausten listauksen tyylit
+│   │   │
+│   │   ├── assets/             # Käyttöliittymän staattiset resurssit
+│   │   ├── images/             # Kuvamateriaalit, kuten auton oletuskuva
+│   │   ├── App.jsx             # Sovelluksen pääkomponentti ja sivujen kokoaminen
+│   │   └── main.jsx            # React-sovelluksen käynnistyspiste
+│   │
+│   └── package.json            # Frontendin riippuvuudet ja Vite-komennot
 │
-└── README.md
-```
+└── README.md                   # Projektin dokumentaatio
+``` 
 
 ## Tietomalli ja skeema
 
